@@ -1,0 +1,2 @@
+ipython==8.14.0
+setuptools==45.2.0

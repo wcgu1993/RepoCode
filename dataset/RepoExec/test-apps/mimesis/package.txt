@@ -1,0 +1,2 @@
+pytz==2023.3
+setuptools==45.2.0

@@ -1,0 +1,11 @@
+aiopg==1.4.0
+colorama==0.4.6
+Markdown==3.4.4
+psycopg2-binary
+pycares==4.3.0
+pycurl==7.45.2
+python_bcrypt==0.3.2
+setuptools==45.2.0
+sphinx_rtd_theme==1.2.2
+typing_extensions==4.7.1
+twisted

@@ -1,0 +1,16 @@
+asttokens==2.2.1
+birdseye==0.9.4
+distro==1.8.0
+docutils==0.20.1
+esptool==4.6.2
+jedi==0.18.2
+mmm==0.4.2
+paramiko==3.2.0
+parso==0.8.3
+pgzero==1.2.1
+Pillow==10.0.0
+ptyprocess==0.7.0
+pyserial==3.5
+send2trash==1.8.2
+setuptools==45.2.0
+websockets==11.0.3

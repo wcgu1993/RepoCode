@@ -1,0 +1,13 @@
+*.pyc
+.cache
+.idea
+.coverage
+.hypothesis
+.vscode
+.mypy_cache
+pymonet.egg-info
+dist
+docs/dist
+monet
+_build
+build

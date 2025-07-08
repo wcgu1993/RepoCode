@@ -1,0 +1,10 @@
+# All the required dependencies should come with tf-nightly package.
+# The rest of the packages are mostly used for testing purpose.
+pandas
+pydot
+scipy ~= 1.5.2
+tf-nightly
+portpicker
+pyyaml
+Pillow
+numpy ~= 1.19.2  # Sync with the numpy version used in TF

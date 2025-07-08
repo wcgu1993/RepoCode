@@ -1,0 +1,12 @@
+build
+dist
+venv
+3.6venv
+*.egg-info
+.python-version
+.idea
+.pytest_cache
+*.pyc
+.mypy_cache
+.hypothesis
+pip-wheel-metadata

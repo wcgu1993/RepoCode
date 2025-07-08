@@ -1,0 +1,17 @@
+alive_progress
+argopt
+colorama
+disco==1.40.4
+docopt
+ipython
+ipywidgets
+matplotlib==3.4.2
+numpy
+pandas
+progressbar33
+requests
+setuptools
+setuptools_scm
+tensorflow
+rich
+keras

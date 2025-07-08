@@ -1,0 +1,8 @@
+attr==0.3.2
+cachetools==5.3.1
+Pygments==2.15.1
+PyYAML==6.0.1
+setuptools==45.2.0
+six==1.16.0
+tldextract==3.4.4
+wrapt==1.15.0

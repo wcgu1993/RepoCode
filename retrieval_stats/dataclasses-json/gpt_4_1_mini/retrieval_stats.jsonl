@@ -1,0 +1,1 @@
+{"macro_metrics": {"precision": 0.099, "recall": 1.0, "f1_score": 0.177, "context_size": 19.5}, "micro_metrics": {"precision": 0.1, "recall": 1.0, "f1_score": 0.182}, "sample_info": {"total_samples": 4, "nodes_in_topmost_layer": 17}, "retriever_stats": {"invocations_per_sample": [11, 11, 12, 13, 12, 6], "total_invocations": 65}}

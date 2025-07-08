@@ -1,0 +1,15 @@
+[run]
+branch = True
+source = sanic
+omit = site-packages, sanic/utils.py, sanic/__main__.py
+
+[html]
+directory = coverage
+
+[report]
+exclude_lines =
+    no cov
+    no qa
+    noqa
+    NOQA
+    pragma: no cover

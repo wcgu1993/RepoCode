@@ -1,0 +1,5 @@
+Jinja2==3.1.2
+PyYAML==6.0.1
+setuptools==45.2.0
+starlette==0.31.0
+uvicorn==0.23.1

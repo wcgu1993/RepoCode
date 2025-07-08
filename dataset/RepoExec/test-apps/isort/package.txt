@@ -1,0 +1,12 @@
+black==23.7.0
+colorama==0.4.6
+httpx==0.24.1
+hug==2.6.1
+mypy_extensions==1.0.0
+numpy==1.25.1
+pip_api==0.0.30
+pipreqs==0.4.11
+pylama==8.4.1
+requirementslib==3.0.0
+setuptools==45.2.0
+Sphinx==7.1.0

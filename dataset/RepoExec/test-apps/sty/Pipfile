@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+
+[dev-packages]
+toml = "==0.10.2"
+buildlib = "==3.0.2"
+setuptools = "==41.0.1"
+docopt = "==0.6.2"
+doc8 = "==0.8.1"
+black = "==20.8b1"
+mypy = "==0.800"
+pylint = "==2.6.0"
+twine = "==3.3.0"
+
+[requires]
+python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true

@@ -1,0 +1,16 @@
+# Optionals
+jinja2
+pyyaml
+
+# Testing
+autoflake
+black
+codecov
+isort
+mypy
+pytest
+pytest-cov
+
+# Documentation
+mkdocs
+mkdocs-material
