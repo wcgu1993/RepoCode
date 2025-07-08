@@ -15,17 +15,13 @@ The system leverages Large Language Models (LLMs) at multiple stages:
 
 Please ensure Python 3.8+ is installed. Clone repository and install dependencies.
 
-1. Clone the repository
-```bash
-git clone https://github.com/YusufEmreGenc/thesis_project.git
-cd thesis_project
-```
-2. Install dependencies:
+
+1. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Set up environment variables:
+2. Set up environment variables:
    - Create a `.env` file with your OpenAI API key:
    ```
    OPENAI_API_KEY=your_api_key_here
