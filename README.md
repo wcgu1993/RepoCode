@@ -15,13 +15,17 @@ The system leverages Large Language Models (LLMs) at multiple stages:
 
 Please ensure Python 3.8+ is installed. Clone repository and install dependencies.
 
-
-1. Install dependencies:
+1. Clone the repository
+```bash
+git clone https://github.com/YusufEmreGenc/thesis_project.git
+cd thesis_project
+```
+2. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-2. Set up environment variables:
+3. Set up environment variables:
    - Create a `.env` file with your OpenAI API key:
    ```
    OPENAI_API_KEY=your_api_key_here
@@ -42,21 +46,67 @@ pip install -r requirements.txt
 
 Build the hierarchical tree, retrieve APIs for a repository, and generate the implementation of the target function:
 ```bash
-python main.py --no-precomputed --repo_name python-string-utils --code_generator_model GPT4.1Mini --experiment exp --code_generation_output --clustering_method HDBSCAN --n_samples 5
+python main.py --no-precomputed --repo_name <repo_name> --experiment <experiment_name> --clustering_method HDBSCAN --n_samples 5
 ```
+- **What happens:**  
+  - Builds the hierarchical tree for the repository (unless `--precomputed` is used).
+  - Retrieves relevant API invocations for each target function.
+  - Generates code for each target function.
+- **Outputs:**
+  - `code_generation_output/<repo_name>/<experiment_name>/processed_generations.json`: Generated code for each function (updated during run).
+  - `retrieval_results/<repo_name>/<experiment_name>/retrieval_results.json`: API retrieval results for each function (updated during run).
+  - `retrieval_stats/<repo_name>/<experiment_name>/retrieval_stats.jsonl`: Aggregate retrieval statistics (written at the end).
+
+**Arguments:**
+- `--repo_name` (required): Name of the repository.
+- `--experiment` (optional): Name for this experiment/run (used in output folder names).
+- `--clustering_method` (optional): Clustering method for tree construction (`HDBSCAN` or `GMM`).
+- `--n_samples` (optional): Number of code generations per function.
+- `--precomputed`/`--no-precomputed`: Use an existing tree or build a new one.
+- `--true_invocations`: Use oracle retrieval (ground-truth APIs) instead of the retrieval system.
+- `--dense_rag`: Use dense RAG baseline instead of hierarchical retrieval.
+- `--code_generator_model`: Choose code generation model (`GPT4.1Mini`, `PlainGPT4.1Mini`, etc.).
+- `--code_retrieval_model`, `--code_describer_model`, `--summarization_model`, `--embedding_model`: Advanced model options (see main.py for defaults).
+
+**Example: Gemini model, oracle case**
+```bash
+python main.py --true_invocations --repo_name python-string-utils --experiment gemini_oracle_exp --clustering_method HDBSCAN --code_generator_model Gemini2.5Flash --code_retrieval_model Gemini2.5Flash --code_describer_model Gemini2.5Flash --summarization_model Gemini2.5Flash --embedding_model Gemini --n_samples 5
+```
+
+#### Other Scenarios
+
+- **Use precomputed tree only for code generation:**
+  ```bash
+  python main.py --precomputed --repo_name <repo_name> --experiment <experiment_name> --clustering_method HDBSCAN --n_samples 5
+  ```
+- **Oracle retrieval (ground-truth APIs):**
+  ```bash
+  python main.py --true_invocations --repo_name <repo_name> --experiment <experiment_name> --clustering_method HDBSCAN --n_samples 5
+  ```
+- **Plain model (no context from repository):**
+  ```bash
+  python main.py --repo_name <repo_name> --experiment <experiment_name> --code_generator_model PlainGPT4.1Mini --clustering_method HDBSCAN --n_samples 5
+  ```
+- **Dense RAG baseline:**
+  ```bash
+  python main.py --dense_rag --repo_name <repo_name> --experiment <experiment_name> --clustering_method HDBSCAN --n_samples 5
+  ```
 
 ### 2. Execution and Evaluation
 
-Set up and run the benchmark environment using [RepoExec](https://github.com/FSoft-AI4Code/RepoExec):
+For the execution part, a new environment for RepoExec benchmark should be created. Set up the benchmark environment using [RepoExec](https://github.com/FSoft-AI4Code/RepoExec):
 ```bash
-cd dataset/RepoExec/execution-code-eval
+cd dataset/RepoExec
+pip install -r requirements
+cd execution-code-eval
 python3 execute.py --subset full_context \
-    --prediction_dir /path/to/code_generation_output/python-string-utils/exp \
-    --execution_dir /path/to/results/python-string-utils/exp \
-    --repo_name python-string-utils \
-    --start_task_id 0 \
-    --end_task_id 38
+    --prediction_dir /path/to/code_generation_output/<repo_name>/<experiment_name> \
+    --execution_dir /path/to/results/<repo_name>/<experiment_name> \
+    --repo_name <repo_name> \
+    --start_task_id <start_id> \
+    --end_task_id <end_id>
 ```
+- **Output:** Execution results are saved in the `results/` folder.
 
 **Task ID Lookup Table**
 
@@ -88,25 +138,17 @@ Use the following table to determine the correct `start_task_id` and `end_task_i
 | black/src | 351 | 353 | 3 |
 | PySnooper | 354 | 354 | 1 |
 
-For detailed setup instructions and additional benchmark configurations, please refer to the [RepoExec GitHub repository](https://github.com/FSoft-AI4Code/RepoExec).
-
 ### 3. Metrics Calculation
 
 Calculate pass@k metrics for all repositories:
 ```bash
-python3 passk.py --parent_path /path/to/results --experiment_name exp --n_samples 5 --isContained
+python3 passk.py --parent_path /path/to/results --experiment_name <experiment_name> --n_samples 5 --isContained
 ```
-
-Replace `/path/to/results` with the actual path to your results directory and `exp` with your experiment name.
 
 ### 4. Visualization
 
 Visualize the hierarchical tree structure of the codebase:
 ```bash
-python visualising_tree.py --repo_name python-string-utils --experiment exp
+python visualising_tree.py --repo_name <repo_name> --experiment <experiment_name>
 ```
-
-## Notes
-
-- Use `--precomputed` flag if you want to use precomputed tree structures instead of reconstructing them
-- Results are organized by experiment name for easy comparison
+- **Output:** Visualization is saved in `tree_views/<repo_name>/<experiment_name>/` (file format and naming depend on the implementation).
